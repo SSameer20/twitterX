@@ -1,49 +1,97 @@
-/* TweetCard.css */
-.tweet-card {
+.feed{
     display: flex;
-    align-items: flex-start;
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #fff;
-    border: 1px solid #e1e8ed;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-    max-width: 600px;
+    flex-direction: column;
+    gap: 5px;
+    height: 85vh;
+    overflow: scroll;
+}
+::-webkit-scrollbar {
+    width: 1px;
+  }
+  
+  /* Track */
+  /* ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    
+  }
+    */
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: black; 
+    border-radius: 1px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  }
+  
+  /* Handle on hover */
+  scrollbar-thumb:hover {
+    background: #b30000; 
+  }
+
+.tweet-card{
+    min-width: 250px;
+    max-width: 350px;
+    padding: 5px 10px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border: 0.1px solid rgba(105, 99, 99, 0.4);
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px black;
 }
 
-.tweet-card-profile-image {
+.tweet-header{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.tweet-card-profile-image{
+    aspect-ratio: 1/1;
     height: 50px;
-    width: 50px;
+    border: none;
     border-radius: 50%;
-    margin-right: 10px;
+    overflow: hidden;
 }
 
-.tweet-card-content {
-    flex: 1;
-}
-
-.tweet-card-header {
+.tweet-card-header{
     display: flex;
-    align-items: center;
-    margin-bottom: 5px;
+    gap: 10px;
 }
 
-.tweet-card-username {
-    font-weight: bold;
-    margin-right: 5px;
+.tweet-card-handle{
+    color: blue;
 }
 
-.tweet-card-handle {
-    color: #657786;
-    margin-right: 5px;
+.tweet-card-text{
+    max-width: 100%;
+    text-align: left;
+}
+.tweet-card-time{
+    color: rgb(129, 125, 125);
 }
 
-.tweet-card-time {
-    color: #657786;
+.tweet-card-image{
+    max-width: 100%;
+
 }
 
-.tweet-card-text {
-    margin: 0;
-    font-size: 16px;
-    color: #14171a;
+.tweet-card-post-image{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    padding: 5px;
+    border: 0.1px solid rgba(135, 132, 132, 0.4);
+    border-radius: 20px;
+}
+
+
+.post-tools{
+    max-width: 100%;
+    display: flex;
+    justify-content: space-around;
 }

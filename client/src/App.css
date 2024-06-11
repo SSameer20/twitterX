@@ -1,0 +1,17 @@
+.container{
+    height: auto;
+    position: relative;
+    width: 98vw;
+}
+
+.main-content{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.feed-section{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

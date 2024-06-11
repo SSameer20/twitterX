@@ -1,7 +1,8 @@
 import React from 'react'
+import "../styles/menu.css"
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <div className='home-menu'>Home</div>
   )
 }
