@@ -61,7 +61,7 @@ To get a local copy up and running, follow these simple steps.
 - Setup `.env` file :
     ```
     PORT=5000
-    URL=mongodb+srv://<username>:<password>@cluster0.mongodb.net/twitterx?retryWrites=true&w=majority
+    URL=MongoDB URL
     ```
 - Start the Frontend :
     ```
