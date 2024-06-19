@@ -65,3 +65,7 @@
     border-radius: 8px;
     color: white;
 }
+
+#login-form > *, #register-form > *{
+    margin: 10px 0px;
+}

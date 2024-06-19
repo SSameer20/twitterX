@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "../styles/login.css";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-    const [page, setPage] = useState(true);
+
+    const [page, setPage] = useState('login');
 
     // Login states
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
 
     // Register states
     const [user, setUser] = useState("");
@@ -15,52 +19,71 @@ export default function Login() {
     const [rpassword, setRPassword] = useState("");
     const [rePassword, setRePassword] = useState("");
 
-    const handleLogin = (event) => {
+    useEffect(() => {
+        if (isLoggedIn) {
+          navigate('/application'); // Navigate to /application route after successful login
+        }
+      }, [isLoggedIn, navigate]);
+    
+
+    const handleLogin = async (event) => {
         event.preventDefault();
-        console.log(email + " " + password);
+
+        try {
+            const res = await axios.post('http://localhost:3001/user/login', {
+                email,
+                password
+            });
+
+            console.log(res.data);
+            setIsLoggedIn(true);
+            alert("Successfully Logged in");
+            setEmail("");
+            setPassword("");
+        } catch (err) {
+            console.error('Login error:', err);
+            alert("Failed to Login");
+        }
+        
     }
 
-    const handleRegister = (event) => {
+    
+    const handleRegister = async (event) => {
         event.preventDefault();
-        axios.post('http://localhost:3001/user/register',{
-        user,
-        remail,
-        rpassword
-    })
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-        // try {
-        //     const response = await axios.post('http://localhost:3001/user/register', {
-        //         user,
-        //         remail,
-        //         rpassword
-        //     });
 
-        //     if (response) {
-        //         alert('User created successfully!');
-        //         console.log(response);
-        //     } else {
-        //         alert('Failed to create user');
-        //         console.log("failed to create");
-        //     }
-        // } catch (error) {
-        //     console.error('There was an error creating the user!', error);
-        // }
+        // Validate passwords match
+        if (rpassword !== rePassword) {
+            alert("Passwords do not match");
+            return;
+        }
 
-        setUser("");
-        setREmail("");
-        setRPassword("");
-        setRePassword("");
+        try {
+            const res = await axios.post('http://localhost:3001/user/register', {
+                user,
+                remail,
+                rpassword
+            });
+
+            console.log(res.data);
+            alert("Successfully Registered");
+            setUser("");
+            setREmail("");
+            setRPassword("");
+            setRePassword("");
+        } catch (err) {
+            console.error('Registration error:', err);
+            alert("Failed to Register");
+        }
     }
 
     return (
         <div className='authentication-page'>
             <div className="table">
                 <div className="page-menu">
-                    <button id='login' onClick={() => setPage(true)}>Login</button>
-                    <button id='register' onClick={() => setPage(false)}>Register</button>
+                    <button id='login' onClick={() => setPage('login')}>Login</button>
+                    <button id='register' onClick={() => setPage('register')}>Register</button>
                 </div>
-                {page === true ? (
+                {page === 'login' ? (
                     <form id='login-form' onSubmit={handleLogin}>
                         <div className="login-email section">
                             <label htmlFor="login-page-email">Email: </label>
@@ -73,11 +96,13 @@ export default function Login() {
                         </div>
 
                         <div className='login-buttons buttons'>
-                            <button type="reset" id='cancel'>Cancel</button>
+                            <button type="button" id='cancel' onClick={() => {}}>Cancel</button>
                             <button type="submit" id='login-submit'>Login</button>
                         </div>
 
-                        <button onClick={() => setPage(false)}>New User? Try register</button>
+                        <div>
+                            <span>Don't have an account? <button type="button" onClick={() => setPage('register')}>Register here</button></span>
+                        </div>
                     </form>
                 ) : (
                     <form id='register-form' onSubmit={handleRegister}>
@@ -102,8 +127,12 @@ export default function Login() {
                         </div>
 
                         <div className='register-buttons buttons section'>
-                            <button type="reset" id='cancel'>Cancel</button>
+                            <button type="button" id='cancel' onClick={() => {}}>Cancel</button>
                             <button type="submit" id='register-submit'>Register</button>
+                        </div>
+
+                        <div>
+                            <span>Already have an account? <button type="button" onClick={() => setPage('login')}>Login here</button></span>
                         </div>
                     </form>
                 )}

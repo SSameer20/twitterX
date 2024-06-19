@@ -8,21 +8,21 @@ import Tweet from './components/Tweet';
 function App() {
   return (
     <div className='container'>
-      <BrowserRouter>
-        <Navigation />
-        <div className='main-content'>
-          <aside className='menu-section'>
-            <Home />
-          </aside>
 
-          <aside className='feed-section'>
-            <Tweet />
-            <Feed />
-          </aside>
+      <Navigation />
+      <div className='main-content'>
+        <aside className='menu-section'>
+          <Home />
+        </aside>
 
-        </div>
+        <aside className='feed-section'>
+          <Tweet />
+          <Feed />
+        </aside>
 
-      </BrowserRouter>
+      </div>
+
+
 
 
     </div>
