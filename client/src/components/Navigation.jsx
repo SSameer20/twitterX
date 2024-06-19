@@ -8,7 +8,7 @@ export default function Navigation() {
         <nav className="navbar">
             <div className="navbar-left">
                 <img src={logo} alt="Logo" className="navbar-logo" />
-                <p className="navbar-company-name">Company Name</p>
+                <p className="navbar-company-name">TwitterX</p>
             </div>
             <div className="navbar-right">
                 <img src={profile} alt="User Profile" className="navbar-profile" />
