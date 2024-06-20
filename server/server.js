@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
-const User = require('./model/userModel'); // Adjust the path as per your file structure
+const User = require('./model/userModel');
+const Post = require('./model/postModel'); // Adjust the path as per your file structure
 
 const app = express();
 app.use(cors());
@@ -54,7 +55,7 @@ app.post('/user/register', async (req, res) => {
 });
 
 // Login route 
-// Login route 
+ 
 app.post('/user/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -73,6 +74,39 @@ app.post('/user/login', async (req, res) => {
   } catch (error) {
       console.error('Login error:', error);
       res.status(400).json({ success: false, message: "Error in login", error: error.message });
+  }
+});
+
+//Post a tweet
+
+app.post("/user/post", async (req,res) => {
+  const {userId, content, media} = req.body;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const tweet = new Post({
+      userId,
+      content,
+      media
+    });
+
+    await tweet.save();
+    res.status(201).json(tweet);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+app.get('/api/posts', async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ createdAt: -1 }).limit(10);
+    //.populate('userId', 'username');
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

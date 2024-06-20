@@ -21,10 +21,10 @@ export default function Login() {
 
     useEffect(() => {
         if (isLoggedIn) {
-          navigate('/application'); // Navigate to /application route after successful login
+            navigate('/application'); // Navigate to /application route after successful login
         }
-      }, [isLoggedIn, navigate]);
-    
+    }, [isLoggedIn, navigate]);
+
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -35,6 +35,9 @@ export default function Login() {
                 password
             });
 
+            const userId = res.data.user._id;
+            localStorage.setItem('userId', userId);
+
             console.log(res.data);
             setIsLoggedIn(true);
             alert("Successfully Logged in");
@@ -44,10 +47,10 @@ export default function Login() {
             console.error('Login error:', err);
             alert("Failed to Login");
         }
-        
+
     }
 
-    
+
     const handleRegister = async (event) => {
         event.preventDefault();
 
@@ -96,7 +99,7 @@ export default function Login() {
                         </div>
 
                         <div className='login-buttons buttons'>
-                            <button type="button" id='cancel' onClick={() => {}}>Cancel</button>
+                            <button type="button" id='cancel' onClick={() => { }}>Cancel</button>
                             <button type="submit" id='login-submit'>Login</button>
                         </div>
 
@@ -127,7 +130,7 @@ export default function Login() {
                         </div>
 
                         <div className='register-buttons buttons section'>
-                            <button type="button" id='cancel' onClick={() => {}}>Cancel</button>
+                            <button type="button" id='cancel' onClick={() => { }}>Cancel</button>
                             <button type="submit" id='register-submit'>Register</button>
                         </div>
 
