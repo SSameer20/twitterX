@@ -16,6 +16,7 @@ The project is divided into two main parts:
 
 1. **Client**: The frontend of the application built with React.
 2. **Server**: The backend of the application built with Node.js, Express, and MongoDB.
+![System Design](./client/src/media/SystemDesign.png)
 
 ## Getting Started
 

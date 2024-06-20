@@ -5,15 +5,15 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const User = require('./model/userModel');
-const Post = require('./model/postModel'); // Adjust the path as per your file structure
+const Post = require('./model/postModel'); 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
+// DB
 const url = process.env.MONGO_URL;
-const dbName = process.env.DB;
+
 
 mongoose.connect(url)
   .then(() => {
@@ -25,30 +25,28 @@ mongoose.connect(url)
 
 // Routes
 
-// Register a new user
+// Route to Register a new user
 app.post('/user/register', async (req, res) => {
   const { user, remail, rpassword } = req.body;
 
   try {
-    // Check if the username or email already exists
+    
     const existingUser = await User.findOne({ $or: [{ user }, { email: remail }] });
     if (existingUser) {
       return res.status(400).json({ success: false, message: 'Username or email already exists' });
     }
     
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(rpassword, 10); // 10 is the salt rounds
+    const hashedPassword = await bcrypt.hash(rpassword, 10); 
 
-    // Create a new user instance
     const newUser = await new User({ user, email: remail, password: hashedPassword });
 
-    // Save the user to the database
+    
     await newUser.save();
 
-    // Respond with the created user object (excluding the password)
+   
     res.status(201).json({ success: true, user: newUser });
   } catch (error) {
-    // Handle errors
+   
     console.error('Error in registration:', error);
     res.status(400).json({ success: false, error: error.message });
   }
@@ -102,8 +100,8 @@ app.post("/user/post", async (req,res) => {
 
 app.get('/api/posts', async (req, res) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 }).limit(10);
-    //.populate('userId', 'username');
+    const posts = await Post.find().sort({ createdAt: -1 }).limit(10)
+    .populate('userId', 'user');
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ message: error.message });

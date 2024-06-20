@@ -1,3 +1,23 @@
 .home-menu{
     width: 20vw;
 }
+
+.home-menu ul{
+    list-style-type: none;
+}
+
+.home-menu ul li{
+    margin: 10px 0px;
+    font-size: x-large;
+    width: 10vwpx;
+}
+
+.home-menu ul li:hover{
+    background-color: rgba(166, 170, 170, 0.5);
+    border-radius: 10px;
+    padding: 0 5px;
+    color: white;
+    transition: 0.7s;
+}
+
+
