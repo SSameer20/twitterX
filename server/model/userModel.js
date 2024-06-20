@@ -16,10 +16,10 @@ const userSchema = new mongoose.Schema({
         required: true
     }
 }, {
-    timestamps: true // Adds createdAt and updatedAt fields automatically
+    timestamps: true 
 });
 
-// Exclude password field when converting user to JSON
+
 userSchema.methods.toJSON = function() {
     const userObject = this.toObject();
     delete userObject.password;
